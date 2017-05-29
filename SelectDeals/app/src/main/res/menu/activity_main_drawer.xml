@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Select Store">
+        <menu>
+            <item
+                android:id="@+id/nav_walmart"
+                android:icon="@drawable/ic_menu_camera"
+                android:title="Walmart"/>
+            <item
+                android:id="@+id/nav_bestbuy"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="BestBuy" />
+        </menu>
+    </item>
+    <item android:title="Others">
+        <menu>
+             <item
+                android:id="@+id/nav_location"
+                android:icon="@drawable/ic_menu_slideshow"
+                android:title="Locations" />
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Share" />
+        </menu>
+    </item>
+</menu>
