@@ -2,22 +2,21 @@ package com.example.hussainshabbir.selectdeals;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import com.example.hussainshabbir.adapter.MyRecyclerViewAdapter;
-import com.example.hussainshabbir.aynctask.Network;
-import java.util.List;
+import com.example.hussainshabbir.adapter.FragmentPageAdapter;
+import com.example.hussainshabbir.fragments.SearchTabFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    RecyclerView rv= null;
-    Network network;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +32,33 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        rv = (RecyclerView)findViewById(R.id.recycler_view);
-        rv.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        network = new Network(MainActivity.this);
-        network.execute("http://api.walmartlabs.com/v1/paginated/items?format=json&specialOffer=specialbuy&apiKey=2kss5eyjk2w7zkzpqmd68ts9");
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Trending"));
+        tabLayout.addTab(tabLayout.newTab().setText("Search"));
+        //tabLayout.addTab(tabLayout.newTab().setText("3"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        final ViewPager viewpager = (ViewPager)findViewById(R.id.pager);
+        final FragmentPageAdapter pageAdapter = new FragmentPageAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        viewpager.setAdapter(pageAdapter);
+        viewpager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewpager.setCurrentItem(tab.getPosition());
+                /*Fragment viewPagerFragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, tab.getPosition());
+                if (viewPagerFragment instanceof SearchTabFragment) {
+                    ((SearchTabFragment) viewPagerFragment).loadData();
+                }*/
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override
@@ -67,10 +89,5 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    public void updateListView(List list) {
-        MyRecyclerViewAdapter adapter = new MyRecyclerViewAdapter(MainActivity.this,list);
-        rv.setAdapter(adapter);
     }
 }

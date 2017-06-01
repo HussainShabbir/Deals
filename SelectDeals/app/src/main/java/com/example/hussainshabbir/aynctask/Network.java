@@ -1,7 +1,11 @@
 package com.example.hussainshabbir.aynctask;
 
+import android.app.Fragment;
 import android.os.AsyncTask;
-import com.example.hussainshabbir.selectdeals.MainActivity;
+
+import com.example.hussainshabbir.classInterface.ListManager;
+import com.example.hussainshabbir.fragments.SearchTabFragment;
+import com.example.hussainshabbir.fragments.TabFragment;
 import com.example.hussainshabbir.selectdeals.Product;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,11 +24,16 @@ import java.util.List;
  */
 
 public class Network extends AsyncTask<String,Void,String> {
-    public MainActivity activity;
+    TabFragment tabFragment = null;
+    SearchTabFragment searchTabFragment = null;
+    ListManager listManager;
 
-    public Network(MainActivity activity) {
-        this.activity = activity;
+
+    public Network(TabFragment tabFragment, SearchTabFragment searchTabFragment) {
+        this.tabFragment= tabFragment;
+        this.searchTabFragment = searchTabFragment;
     }
+
 
     @Override
     protected void onPreExecute()
@@ -98,9 +107,19 @@ public class Network extends AsyncTask<String,Void,String> {
                 }
                 list.add(product);
             }
-            activity.updateListView(list);
+            updateListManager();
+            listManager.updateListView(list);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
+    public void updateListManager() {
+        if (tabFragment != null) {
+            listManager = this.tabFragment;
+        } else if (searchTabFragment != null) {
+            listManager = this.searchTabFragment;
+        }
+    }
 }
+

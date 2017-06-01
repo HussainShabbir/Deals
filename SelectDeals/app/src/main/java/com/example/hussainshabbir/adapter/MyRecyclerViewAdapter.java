@@ -63,7 +63,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public int getItemCount() {
-        System.out.print(productList.size());
         return (null != productList ? productList.size() : 0);
     }
 
