@@ -5,7 +5,8 @@ import android.os.AsyncTask;
 
 import com.example.hussainshabbir.classInterface.ListManager;
 import com.example.hussainshabbir.fragments.SearchTabFragment;
-import com.example.hussainshabbir.fragments.TabFragment;
+import com.example.hussainshabbir.fragments.SpecialOfferFragment;
+import com.example.hussainshabbir.fragments.TrendingFragment;
 import com.example.hussainshabbir.selectdeals.Product;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,14 +25,16 @@ import java.util.List;
  */
 
 public class Network extends AsyncTask<String,Void,String> {
-    TabFragment tabFragment = null;
+    TrendingFragment trendingFragment = null;
     SearchTabFragment searchTabFragment = null;
+    SpecialOfferFragment specialOfferFragment = null;
     ListManager listManager;
 
 
-    public Network(TabFragment tabFragment, SearchTabFragment searchTabFragment) {
-        this.tabFragment= tabFragment;
+    public Network(TrendingFragment tabFragment, SearchTabFragment searchTabFragment, SpecialOfferFragment specialOfferFragment) {
+        this.trendingFragment= tabFragment;
         this.searchTabFragment = searchTabFragment;
+        this.specialOfferFragment = specialOfferFragment;
     }
 
 
@@ -115,10 +118,12 @@ public class Network extends AsyncTask<String,Void,String> {
     }
 
     public void updateListManager() {
-        if (tabFragment != null) {
-            listManager = this.tabFragment;
+        if (trendingFragment != null) {
+            listManager = this.trendingFragment;
         } else if (searchTabFragment != null) {
             listManager = this.searchTabFragment;
+        } else if (specialOfferFragment != null) {
+            listManager = this.specialOfferFragment;
         }
     }
 }

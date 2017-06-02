@@ -37,8 +37,8 @@ public class SearchTabFragment extends Fragment implements ListManager {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 String searchQuery = query.toString();
-                network = new Network(null,SearchTabFragment.this);
-                network.execute(String.format("http://api.walmartlabs.com/v1/search?query=%s&apiKey=2kss5eyjk2w7zkzpqmd68ts9",searchQuery));
+                network = new Network(null,SearchTabFragment.this,null);
+                network.execute(String.format("http://api.walmartlabs.com/v1/search?format=json&query=%s&apiKey=2kss5eyjk2w7zkzpqmd68ts9",searchQuery));
                 return false;
             }
 
@@ -47,10 +47,6 @@ public class SearchTabFragment extends Fragment implements ListManager {
                 return false;
             }
         });
-    }
-
-    public void loadData() {
-
     }
 
     public void updateListView(List list) {

@@ -18,18 +18,18 @@ import java.util.List;
  * Created by HussainShabbir on 5/30/17.
  */
 
-public class TabFragment extends Fragment implements ListManager {
+public class TrendingFragment extends Fragment implements ListManager {
     Network network;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.tab_fragment,container,false);
+        return inflater.inflate(R.layout.trending_fragment,container,false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        network = new Network(TabFragment.this,null);
-        network.execute("http://api.walmartlabs.com/v1/trends?apiKey=2kss5eyjk2w7zkzpqmd68ts9");
+        network = new Network(TrendingFragment.this,null,null);
+        network.execute("http://api.walmartlabs.com/v1/trends?format=json&apiKey=2kss5eyjk2w7zkzpqmd68ts9");
     }
 
     public void updateListView(List list) {

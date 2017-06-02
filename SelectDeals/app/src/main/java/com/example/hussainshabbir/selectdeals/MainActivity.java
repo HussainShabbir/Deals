@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Trending"));
         tabLayout.addTab(tabLayout.newTab().setText("Search"));
-        //tabLayout.addTab(tabLayout.newTab().setText("3"));
+        tabLayout.addTab(tabLayout.newTab().setText("Special Offer"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewpager = (ViewPager)findViewById(R.id.pager);
         final FragmentPageAdapter pageAdapter = new FragmentPageAdapter(getSupportFragmentManager(),tabLayout.getTabCount());

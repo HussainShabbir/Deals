@@ -3,11 +3,9 @@ package com.example.hussainshabbir.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v7.widget.RecyclerView;
-
-import com.example.hussainshabbir.aynctask.Network;
 import com.example.hussainshabbir.fragments.SearchTabFragment;
-import com.example.hussainshabbir.fragments.TabFragment;
+import com.example.hussainshabbir.fragments.SpecialOfferFragment;
+import com.example.hussainshabbir.fragments.TrendingFragment;
 import com.example.hussainshabbir.selectdeals.Product;
 
 import java.util.List;
@@ -30,10 +28,13 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new TabFragment();
+                fragment = new TrendingFragment();
                 break;
             case 1:
                 fragment = new SearchTabFragment();
+                break;
+            case 2:
+                fragment = new SpecialOfferFragment();
                 break;
         }
         return fragment;
