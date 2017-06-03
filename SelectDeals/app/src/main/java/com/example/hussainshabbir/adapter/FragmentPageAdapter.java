@@ -3,6 +3,8 @@ package com.example.hussainshabbir.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.example.hussainshabbir.fragments.LocationFragment;
 import com.example.hussainshabbir.fragments.SearchTabFragment;
 import com.example.hussainshabbir.fragments.SpecialOfferFragment;
 import com.example.hussainshabbir.fragments.TrendingFragment;
@@ -35,6 +37,9 @@ public class FragmentPageAdapter extends FragmentStatePagerAdapter {
                 break;
             case 2:
                 fragment = new SpecialOfferFragment();
+                break;
+            case 3:
+                fragment = new LocationFragment();
                 break;
         }
         return fragment;

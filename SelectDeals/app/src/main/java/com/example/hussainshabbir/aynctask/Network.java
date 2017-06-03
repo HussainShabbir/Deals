@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.AsyncTask;
 
 import com.example.hussainshabbir.classInterface.ListManager;
+import com.example.hussainshabbir.fragments.LocationFragment;
 import com.example.hussainshabbir.fragments.SearchTabFragment;
 import com.example.hussainshabbir.fragments.SpecialOfferFragment;
 import com.example.hussainshabbir.fragments.TrendingFragment;
@@ -25,13 +26,14 @@ import java.util.List;
  */
 
 public class Network extends AsyncTask<String,Void,String> {
-    TrendingFragment trendingFragment = null;
-    SearchTabFragment searchTabFragment = null;
-    SpecialOfferFragment specialOfferFragment = null;
-    ListManager listManager;
+    private TrendingFragment trendingFragment = null;
+    private SearchTabFragment searchTabFragment = null;
+    private SpecialOfferFragment specialOfferFragment = null;
+    private ListManager listManager;
 
 
-    public Network(TrendingFragment tabFragment, SearchTabFragment searchTabFragment, SpecialOfferFragment specialOfferFragment) {
+    public Network(TrendingFragment tabFragment, SearchTabFragment searchTabFragment,
+                   SpecialOfferFragment specialOfferFragment) {
         this.trendingFragment= tabFragment;
         this.searchTabFragment = searchTabFragment;
         this.specialOfferFragment = specialOfferFragment;
@@ -68,7 +70,7 @@ public class Network extends AsyncTask<String,Void,String> {
             JSONArray jsonArray = new JSONArray();
             JSONObject json = new JSONObject(response);
             jsonArray = json.getJSONArray("items");
-            List<Product> list = new ArrayList<Product>();
+            List list = new ArrayList();
             for (int i = 0 ; i< jsonArray.length(); i++) {
                 Product product = new Product();
                 JSONObject obj = jsonArray.getJSONObject(i);
@@ -107,6 +109,9 @@ public class Network extends AsyncTask<String,Void,String> {
                 }
                 if (obj.has("age")) {
                     product.setAge(obj.getString("age"));
+                }
+                if (obj.has("productUrl")) {
+                    product.setProductUrl(obj.getString("productUrl"));
                 }
                 list.add(product);
             }

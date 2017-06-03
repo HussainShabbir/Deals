@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.example.hussainshabbir.classInterface.RecyclerViewClickListener;
 import com.example.hussainshabbir.selectdeals.Product;
 import com.example.hussainshabbir.selectdeals.R;
 
@@ -31,16 +32,24 @@ import java.util.List;
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.CustomViewHolder> {
     private List<Product> productList;
     private Context mContext;
+    RecyclerViewClickListener onClickListener;
 
-    public MyRecyclerViewAdapter(Context context, List<Product> productList) {
+    public MyRecyclerViewAdapter(Context context, List<Product> productList, RecyclerViewClickListener onClickListener) {
         this.productList = productList;
         this.mContext = context;
+        this.onClickListener = onClickListener;
     }
 
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.product_row, null);
+        final View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.product_row, null);
         CustomViewHolder viewHolder = new CustomViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickListener.rowViewDidClick(view);
+            }
+        });
         return viewHolder;
     }
 

@@ -1,9 +1,11 @@
 package com.example.hussainshabbir.selectdeals;
 
+import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
+import android.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -11,8 +13,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+
 import com.example.hussainshabbir.adapter.FragmentPageAdapter;
-import com.example.hussainshabbir.fragments.SearchTabFragment;
+import com.example.hussainshabbir.fragments.LocationFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,10 +37,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Trending"));
         tabLayout.addTab(tabLayout.newTab().setText("Search"));
         tabLayout.addTab(tabLayout.newTab().setText("Special Offer"));
+        tabLayout.addTab(tabLayout.newTab().setText("LOCATION"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewpager = (ViewPager)findViewById(R.id.pager);
         final FragmentPageAdapter pageAdapter = new FragmentPageAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
@@ -45,6 +51,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewpager.setCurrentItem(tab.getPosition());
+                View view = MainActivity.this.getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
                 /*Fragment viewPagerFragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, tab.getPosition());
                 if (viewPagerFragment instanceof SearchTabFragment) {
                     ((SearchTabFragment) viewPagerFragment).loadData();
@@ -78,7 +89,6 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_walmart) {
-            // Handle the camera action
         } else if (id == R.id.nav_bestbuy) {
 
         } else if (id == R.id.nav_location) {

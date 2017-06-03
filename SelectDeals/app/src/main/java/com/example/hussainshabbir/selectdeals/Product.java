@@ -23,6 +23,16 @@ public class Product {
     String gender;
     String age;
 
+    public String getProductUrl() {
+        return productUrl;
+    }
+
+    public void setProductUrl(String productUrl) {
+        this.productUrl = productUrl;
+    }
+
+    String productUrl;
+
     public String getSize() {
         return size;
     }
